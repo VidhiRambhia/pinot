@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import javax.annotation.Nullable;
 import org.apache.pinot.common.request.context.ExpressionContext;
 import org.apache.pinot.common.utils.HashUtil;
@@ -44,7 +45,7 @@ public class ProjectionOperator extends BaseProjectOperator<ProjectionBlock> {
 
   public ProjectionOperator(Map<String, DataSource> dataSourceMap,
       @Nullable BaseOperator<DocIdSetBlock> docIdSetOperator) {
-    _dataSourceMap = dataSourceMap;
+    _dataSourceMap = new TreeMap<>(dataSourceMap);
     _docIdSetOperator = docIdSetOperator;
     _dataBlockCache = new DataBlockCache(new DataFetcher(dataSourceMap));
     _columnContextMap = new HashMap<>(HashUtil.getHashMapCapacity(dataSourceMap.size()));
