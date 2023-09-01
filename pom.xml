@@ -1330,7 +1330,6 @@
           <artifactId>maven-surefire-plugin</artifactId>
           <version>3.0.0-M5</version>
           <configuration>
-            <argLine>-Dlog4j.configuration=</argLine> // This change is made to run the project locally, it will not be a part of the actual PR
             <forkCount>1</forkCount>
             <reuseForks>false</reuseForks>
             <!-- 60 minutes -->
@@ -1469,7 +1468,7 @@
         -->
         <configuration>
           <testFailureIgnore>false</testFailureIgnore>
-          <!-- Excludes integration tests when unit tests are run. -->
+          <argLine>-Dlog4j.configuration=</argLine> // This change is made to run the project locally, it will not be a part of the actual PR
           <excludes>
             <exclude>**/*IT.java</exclude>
           </excludes>
