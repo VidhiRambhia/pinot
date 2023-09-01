@@ -1468,7 +1468,8 @@
         -->
         <configuration>
           <testFailureIgnore>false</testFailureIgnore>
-          <argLine>-Dlog4j.configuration=</argLine> // This change is made to run the project locally, it will not be a part of the actual PR
+          <argLine>-Dlog4j.configuration=</argLine>
+          <!-- Excludes integration tests when unit tests are run. -->
           <excludes>
             <exclude>**/*IT.java</exclude>
           </excludes>
