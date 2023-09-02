@@ -152,9 +152,8 @@ public class QueriesTestUtils {
       ArrayList<Object> listOfObjects = new ArrayList<>();
       for (Object expectedObject : actual.get(i)) {
         if (expectedObject instanceof String) {
-          listOfObjects
-                  .add(Arrays.toString(Arrays.stream(((String) expectedObject)
-                          .replaceAll(" ", "").split("[(,)]")).sorted().toArray()));
+          listOfObjects.add(Arrays.toString(Arrays.stream(((String) expectedObject)
+                  .replaceAll(" ", "").split("[(,)]")).sorted().toArray()));
         } else {
           listOfObjects.add(expectedObject);
         }
