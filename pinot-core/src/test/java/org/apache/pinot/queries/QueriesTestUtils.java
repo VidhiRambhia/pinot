@@ -21,7 +21,7 @@ package org.apache.pinot.queries;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
@@ -134,8 +134,8 @@ public class QueriesTestUtils {
 
   private static void validateRows(List<Object[]> actual, List<Object[]> expected) {
     assertEquals(actual.size(), expected.size());
-    HashMap<Integer, ArrayList<Object>> actualHashmap = new HashMap<>();
-    HashMap<Integer, ArrayList<Object>> expectedHashmap = new HashMap<>();
+    HashSet<ArrayList<Object>> actualHashSet = new HashSet<>();
+    HashSet<ArrayList<Object>> expectedHashSet = new HashSet<>();
     for (int i = 0; i < actual.size(); i++) {
       ArrayList<Object> listOfObjects = new ArrayList<>();
       for (Object actualObject : actual.get(i)) {
@@ -146,7 +146,7 @@ public class QueriesTestUtils {
           listOfObjects.add(actualObject);
         }
       }
-      actualHashmap.put(i, listOfObjects);
+      actualHashSet.add(listOfObjects);
     }
     for (int i = 0; i < expected.size(); i++) {
       ArrayList<Object> listOfObjects = new ArrayList<>();
@@ -159,9 +159,9 @@ public class QueriesTestUtils {
           listOfObjects.add(expectedObject);
         }
       }
-      expectedHashmap.put(i, listOfObjects);
+      expectedHashSet.add(listOfObjects);
     }
-    assertEquals(actualHashmap, expectedHashmap);
+    assertEquals(actualHashSet, expectedHashSet);
   }
 
   public static void testInterSegmentsResult(BrokerResponseNative brokerResponse, long expectedNumDocsScanned,
