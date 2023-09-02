@@ -150,7 +150,7 @@ public class QueriesTestUtils {
     }
     for (int i = 0; i < expected.size(); i++) {
       ArrayList<Object> listOfObjects = new ArrayList<>();
-      for (Object expectedObject : actual.get(i)) {
+      for (Object expectedObject : expected.get(i)) {
         if (expectedObject instanceof String) {
           listOfObjects.add(Arrays.toString(Arrays.stream(((String) expectedObject)
                   .replaceAll(" ", "").split("[(,)]")).sorted().toArray()));
