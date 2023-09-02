@@ -186,8 +186,8 @@ public class JsonIngestionFromAvroQueriesTest extends BaseQueriesTest {
             createEnumField(enumSchema, "LEFT"), createFixedField(fixedSchema, 4), new byte[] {0, 0, 0, 4}));
 
     // insert RECORD
-    inputRecords.add(createTableRecord(5, "minney mouse", createRecordField("id", 1, "name", "minney"),
-        createEnumField(enumSchema, "RIGHT"), createFixedField(fixedSchema, 5), new byte[] {0, 0, 0, 5}));
+    inputRecords.add(createTableRecord(5, "minney mouse", "{\"id\":1,\"name\":\"minney\"}",
+            createEnumField(enumSchema, "RIGHT"), createFixedField(fixedSchema, 5), new byte[] {0, 0, 0, 5}));
 
     // Insert simple Java String (gets converted into JSON value)
     inputRecords.add(
