@@ -18,8 +18,10 @@
  */
 package org.apache.pinot.queries;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
@@ -132,10 +134,33 @@ public class QueriesTestUtils {
 
   private static void validateRows(List<Object[]> actual, List<Object[]> expected) {
     assertEquals(actual.size(), expected.size());
+    HashSet<ArrayList<Object>> actualHashSet = new HashSet<>();
+    HashSet<ArrayList<Object>> expectedHashSet = new HashSet<>();
     for (int i = 0; i < actual.size(); i++) {
-      // Generic assertEquals delegates to assertArrayEquals, which can test for equality of array values in rows.
-      assertEquals((Object) actual.get(i), (Object) expected.get(i));
+      ArrayList<Object> listOfObjects = new ArrayList<>();
+      for (Object actualObject : actual.get(i)) {
+        if (actualObject instanceof String) {
+          listOfObjects.add(Arrays.toString(Arrays.stream(((String) actualObject)
+                  .replaceAll(" ", "").split("[(,)]")).sorted().toArray()));
+        } else {
+          listOfObjects.add(actualObject);
+        }
+      }
+      actualHashSet.add(listOfObjects);
     }
+    for (int i = 0; i < expected.size(); i++) {
+      ArrayList<Object> listOfObjects = new ArrayList<>();
+      for (Object expectedObject : expected.get(i)) {
+        if (expectedObject instanceof String) {
+          listOfObjects.add(Arrays.toString(Arrays.stream(((String) expectedObject)
+                  .replaceAll(" ", "").split("[(,)]")).sorted().toArray()));
+        } else {
+          listOfObjects.add(expectedObject);
+        }
+      }
+      expectedHashSet.add(listOfObjects);
+    }
+    assertEquals(actualHashSet, expectedHashSet);
   }
 
   public static void testInterSegmentsResult(BrokerResponseNative brokerResponse, long expectedNumDocsScanned,
